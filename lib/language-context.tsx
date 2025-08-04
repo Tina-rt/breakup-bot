@@ -11,21 +11,6 @@ interface LanguageContextType {
   t: (key: string) => string
 }
 
-function convertTranslationsToMap(translationsObject: any) : Map<string, Map<string, string>> {
-  const outerMap = new Map();
-
-  for (const [lang, translations] of Object.entries(translationsObject)) {
-    const innerMap = new Map();
-
-    for (const [key, value] of Object.entries(translations as string)) {
-      innerMap.set(key, value);
-    }
-
-    outerMap.set(lang, innerMap);
-  }
-
-  return outerMap;
-}
 
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
@@ -54,7 +39,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }
 
   const t = (key: string): string => {
-    return translationsMap.get(language)?.get(key) || key
+    return translations[language][key] || key
   }
 
   return (
@@ -62,7 +47,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   )
 }
 
-const translations = {
+const translations : Record<string, Record<string, string>> = {
   en: {
     // Navigation
     "nav.tryGenerator": "Try Generator",
@@ -166,5 +151,3 @@ const translations = {
     "tips.entertainment": "• Rappel: c'est uniquement à des fins de divertissement!",
   },
 }
-
-const translationsMap = convertTranslationsToMap(translations)
