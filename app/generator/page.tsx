@@ -68,7 +68,7 @@ export default function GeneratorPage() {
               {currentExcuse ? (
                 <div className="space-y-6">
                   <div className="bg-gray-50 rounded-lg p-6 min-h-[120px] flex items-center justify-center">
-                    <p className="text-lg text-gray-800 leading-relaxed italic">"{currentExcuse}"</p>
+                    <p className="text-lg text-gray-800 leading-relaxed italic">&quot;{currentExcuse}&quot;</p>
                   </div>
                   <div className="flex gap-4 justify-center">
                     <Button
